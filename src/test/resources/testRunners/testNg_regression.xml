@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Demo Cart App Regression Test Suite" thread-count="2" parallel="methods" verbose="3">
-<listeners>
+<suite name="Demo Cart App Regression Test Suite" thread-count="2"
+	parallel="methods" verbose="3">
+	<listeners>
 
-<listener class-name="com.qa.opencart.listeners.AllureReportListener"/>
-</listeners>
+		<listener
+			class-name="com.qa.opencart.listeners.AllureReportListener" />
+	</listeners>
 
 
-<test name="Login Page test">
- <classes>
+	<test name="Login Page test">
+		<classes>
 			<class name="com.qa.opencart.tests.LoginPageTest" />
- </classes>
+		</classes>
 
-</test>
+	</test>
 
-<test name="Accounts Page Test">
- <classes>
-			<class name="com.qa.opencart.tests.AccountPageTest" />
- </classes>
+<!-- 	<test name="Accounts Page Test"> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.qa.opencart.tests.AccountPageTest" /> -->
+<!-- 		</classes> -->
 
-</test>
+<!-- 	</test> -->
 
 
 </suite>
