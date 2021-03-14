@@ -16,12 +16,12 @@
 
 	</test>
 
-<!-- 	<test name="Accounts Page Test"> -->
-<!-- 		<classes> -->
-<!-- 			<class name="com.qa.opencart.tests.AccountPageTest" /> -->
-<!-- 		</classes> -->
+	<test name="Accounts Page Test">
+		<classes>
+			<class name="com.qa.opencart.tests.AccountPageTest" />
+		</classes>
 
-<!-- 	</test> -->
+	</test>
 
 
 </suite>
