@@ -19,6 +19,8 @@ public class LoginPageTest extends BaseTest {
 
 	@Description("Login title validaton")
 	@Severity(SeverityLevel.MINOR)
+	
+	
 	@Test (priority=1)
 	public void LoginPageTitleTest()
 	{
@@ -35,7 +37,7 @@ public class LoginPageTest extends BaseTest {
 	}
 	@Description("Login validaton")
 	@Severity(SeverityLevel.CRITICAL)
-	@Test (priority=3)
+	@Test (priority=3,enabled=true)
 	public void doLoginTest()
 	{
 	

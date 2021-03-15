@@ -78,14 +78,47 @@ public class DriverFactory {
 	public Properties inti_prop()
 	{
 		 prop=new Properties();
-		
+		 FileInputStream file=null;
+		 //read environment from command line/
+		 String env=System.getProperty("env");
+		 if (env==null)
+		 {
+			 try {
+				file=new FileInputStream("./src/test/resources/config/config.properties");
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 }
+		 else
+			 
+		 {
+			 try {
+			 switch (env) {
+			 
+			case "qa":
+				
+				file=new FileInputStream("./src/test/resources/config/config_qa.properties");
+				break;
+			case "stage":
+				file=new FileInputStream("./src/test/resources/config/config_staging.properties");
+				break;
+			case "dev":
+				file=new FileInputStream("./src/test/resources/config/config_dev.properties");
+				break;
+
+			default:
+				System.out.println("enviornment is not available");
+				break;
+			}
+		 }
+			 catch(FileNotFoundException e){
+				 e.printStackTrace();
+				 }
+			 }
+		 
 		try {
-			FileInputStream file=new FileInputStream("./src/test/resources/config/config.properties");
-			
 			prop.load(file);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
