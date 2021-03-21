@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
@@ -11,7 +13,11 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -24,11 +30,13 @@ public class DriverFactory {
 	 
 	 public static String highlight; 
 	 
+	 DesiredCapabilities cap;
+	 
 	 public static  ThreadLocal<WebDriver>tlDriver=new ThreadLocal<>();
 	
-	public WebDriver inti_driver(Properties prop)
+	public WebDriver inti_driver(String browserName,String browserVersion)
 	{
-		String browserName=prop.getProperty("browser").trim();
+		//String browserName=prop.getProperty("browser").trim();
 		highlight=prop.getProperty("highlight").trim();
 		optionsManger=new OptionsManager(prop);
 		
@@ -37,16 +45,29 @@ public class DriverFactory {
 		if (browserName.equalsIgnoreCase("chrome"))
 		{
 			WebDriverManager.chromedriver().setup();
-			//driver=new ChromeDriver(optionsManger.getChromeOptions());
-			tlDriver.set(new ChromeDriver(optionsManger.getChromeOptions()));
+			
+			if (Boolean.parseBoolean(prop.getProperty("remote")))
+			{
+				inti_remoteDriver(browserName,browserVersion);
+			}
+			
+			else
+			{
+				tlDriver.set(new ChromeDriver(optionsManger.getChromeOptions()));
+			}
 			
 		}
 		
 		else if (browserName.equalsIgnoreCase("firefox"))
 		{
 			WebDriverManager.firefoxdriver().setup();
-			//driver=new FirefoxDriver(optionsManger.getFireFoxoptions());
+			if (Boolean.parseBoolean(prop.getProperty("remote")))
+			{
+				inti_remoteDriver(browserName,browserVersion);
+			}
+			else {
 			tlDriver.set(new FirefoxDriver(optionsManger.getFireFoxoptions()));
+		}
 		}
 		
 		else if (browserName.equalsIgnoreCase("safari"))
@@ -65,6 +86,47 @@ public class DriverFactory {
 		getDriver().manage().deleteAllCookies();
 		getDriver().get(prop.getProperty("url").trim());
 		return getDriver();
+	}
+	
+	/**
+	 * this method define desired capbility and intialize driver with given capbilites .this call on selenium grid 
+	 * @param browserName
+	 */
+     private void inti_remoteDriver(String browserName,String browserVersion) {
+		
+    	 if (browserName.equals("chrome"))
+    	 {
+    	  cap= DesiredCapabilities.chrome();
+    	 cap.setCapability(ChromeOptions.CAPABILITY, optionsManger.getChromeOptions());
+    	 cap.setCapability("browserName", browserName.toLowerCase());
+    	 cap.setCapability("browserVersion", browserVersion);
+    	 cap.setCapability("enableVNC", true);
+    	 try {
+			tlDriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")), cap));
+		   } catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	 }
+    	 else if (browserName.equals("firefox"))
+    	 {
+    		 
+    	    cap=DesiredCapabilities.firefox();
+    	    
+    	    cap.setCapability(FirefoxOptions.FIREFOX_OPTIONS, optionsManger.getFireFoxoptions());
+    	    cap.setCapability("browserName", browserName.toLowerCase());
+       	    cap.setCapability("browserVersion", browserVersion);
+       	    cap.setCapability("enableVNC", true);
+    	    try {
+				tlDriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")), cap));
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	 
+    		 }
+    	 
+    	 
 	}
 /*
  * This method is return driver of ThreadlocalDriver	
@@ -129,16 +191,18 @@ public class DriverFactory {
 
 	public String getScreenshot() 
 	{
-		File srcFile = ((TakesScreenshot)getDriver()).getScreenshotAs(OutputType.FILE);
-		String path=System.getProperty("user.dir")+"/screenshots/"+System.currentTimeMillis()+".png";
-		File destination=new File(path);
+		File srcFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
+		//File srcFile = new File(src);
+
+		String path = System.getProperty("user.dir") + "/screenshots/" + System.currentTimeMillis() + ".png";
+		File destination = new File(path);
+
 		try {
 			FileUtils.copyFile(srcFile, destination);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return path;
 	}
 }

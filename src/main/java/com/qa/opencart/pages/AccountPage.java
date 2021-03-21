@@ -12,7 +12,7 @@ import com.qa.opencart.utils.ElementsUtils;
 
 public class AccountPage {
 	
-	WebDriver driver;
+	private WebDriver driver;
 	
 	ElementsUtils elemutil;
 	

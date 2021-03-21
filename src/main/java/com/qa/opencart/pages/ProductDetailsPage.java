@@ -58,7 +58,7 @@ public class ProductDetailsPage {
 		List<WebElement>priceList=elemutil.getElements(productPrice);
 		
 		productInfoMap.put("price", priceList.get(0).getText().trim());
-		productInfoMap.put("priceList",priceList.get(1).getText().trim());
+		productInfoMap.put("priceList",priceList.get(1).getText().split(":")[1].trim());
 		
 		return productInfoMap;
 			

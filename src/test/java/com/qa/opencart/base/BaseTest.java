@@ -5,6 +5,9 @@ import java.util.Properties;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
+
 import com.qa.opencart.factory.DriverFactory;
 import com.qa.opencart.pages.AccountPage;
 import com.qa.opencart.pages.LoginPage;
@@ -19,16 +22,40 @@ public class BaseTest {
 	
 	public LoginPage loginpage;
 	public AccountPage accPage;
-	public ProductListPage productList;
-	public ProductDetailsPage productDetails;
-	public RegistrationPage registration;
+	public ProductListPage productListPage;
+	public ProductDetailsPage productDetailsPage;
+	public RegistrationPage registrationPage;
 	
+	@Parameters({"browser","version"})
 	@BeforeTest
-	public void setUp()
+	public void setUp(@Optional String browserName,@Optional String browserVersion)
 	{
+		System.out.println(browserName + " "+browserVersion );
 		df=new DriverFactory();
 		prop=df.inti_prop();
-		driver=df.inti_driver(prop);
+		
+		//Read the properties from property file
+		String browser=prop.getProperty("browser");
+		//Read the properties from environment when pass browser from man command like mvn clean install -Dbrowser='Chroe'
+		String browserEnv=System.getProperty("browser");
+		/*
+		 * if browser name null from xml parameter then use set browser from properties file
+		 */
+		if (browserName!=null)
+		{
+			browser=browserName;
+		}
+		
+		/*
+		 * if browser name null from xml parameter and user pass the browser maven command then use enviornment parameter
+		 */
+		
+		if(browserEnv!=null)
+		{
+			browser=browserEnv;
+		}
+		
+		driver=df.inti_driver(browser,browserVersion);
 		loginpage=new LoginPage(driver);
 		
 	}

@@ -82,19 +82,19 @@ SoftAssert softassert= new SoftAssert();
 	@Test(priority=6)
 	public void searchProductTest()
 	{
-		productList=accPage.doSearch("macbook");
-		Assert.assertTrue(productList.getProductsCount()>0,Errors.PRODUCT_COUNT_ERROR);		
+		productListPage=accPage.doSearch("macbook");
+		Assert.assertTrue(productListPage.getProductsCount()>0,Errors.PRODUCT_COUNT_ERROR);		
 	}
 	@Description("searchProductTest")
 	@Severity(SeverityLevel.CRITICAL)
 	@Test(priority=7)
 	public void SelectProductTest()
 	{   
-		productList=accPage.doSearch("macbook");
-		productDetails=productList.selectProductFromResults("MacBook Pro");
-		String actualHeader=productDetails.getProductHeaderText();
+		productListPage=accPage.doSearch("macbook");
+		productDetailsPage=productListPage.selectProductFromResults("MacBook Pro");
+		String actualHeader=productDetailsPage.getProductHeaderText();
 		softassert.assertEquals(actualHeader, "MacBook Pro",Errors.PRODUCT_HEADER_NOTFOUND_ERROR);
-		softassert.assertEquals(productDetails.getProductImages(), Constants.PRODUCT_DETAILS_IMAGES,Errors.PRODUCT_IMAGES_ERROR);
+		softassert.assertEquals(productDetailsPage.getProductImages(), Constants.PRODUCT_DETAILS_IMAGES,Errors.PRODUCT_IMAGES_ERROR);
 		softassert.assertAll();	
 	}
 }

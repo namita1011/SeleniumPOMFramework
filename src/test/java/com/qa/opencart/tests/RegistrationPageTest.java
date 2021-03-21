@@ -27,7 +27,7 @@ public class RegistrationPageTest extends BaseTest{
 	@BeforeClass
 	public void setUpRegistartion()
 	{
-		registration=loginpage.NavigateToPage();
+		registrationPage=loginpage.NavigateToPage();
 	}
 	
 	
@@ -44,7 +44,7 @@ public class RegistrationPageTest extends BaseTest{
 	@Test(dataProvider="getRegisterData")
 	public void accountCreationTest(String fname,String lname,String telephone ,String password,String subscribe)
 	{
-		Assert.assertTrue(registration.accountRegistartion(fname,
+		Assert.assertTrue(registrationPage.accountRegistartion(fname,
 		lname, CommonUtil.getRandomEmail(), telephone ,password,subscribe),Errors.REGSTER_ERROR);
 	}
 
