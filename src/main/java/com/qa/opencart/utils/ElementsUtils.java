@@ -389,6 +389,7 @@ public class ElementsUtils {
 			WebDriverWait wait = new WebDriverWait(driver, timeOut);
 			return wait.until(ExpectedConditions.textToBe(locator, value));
 		}
+		
 
 		public boolean waitForUrlToBe(int timeOut, String urlValue) {
 			WebDriverWait wait = new WebDriverWait(driver, timeOut);

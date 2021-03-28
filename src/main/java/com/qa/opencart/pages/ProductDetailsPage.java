@@ -6,6 +6,8 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import com.qa.opencart.utils.Constants;
 import com.qa.opencart.utils.ElementsUtils;
 
 public class ProductDetailsPage {
@@ -19,7 +21,7 @@ public class ProductDetailsPage {
 	private By productPrice=By.cssSelector("div#content ul.list-unstyled:nth-of-type(2) li");
 	private By quntity=By.xpath("//input[@id='input-quantity']");
 	private By addToCart=By.cssSelector(".btn.btn-primary.btn-lg.btn-block");
-	private By successMessage=By.cssSelector("div.alert.alert-success.alert-dismissible");
+	private By successMessage=By.xpath("//div[@id='product-product']//div[@class='alert alert-success alert-dismissible']");
 
 	public ProductDetailsPage(WebDriver driver) {
 		
@@ -76,7 +78,8 @@ public class ProductDetailsPage {
 	
 	public String getSuccessMeg()
 	{
-		return elemutil.getElement(successMessage).getText();
+		
+		return elemutil.getElementText(successMessage);
 	}
 
 }

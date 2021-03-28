@@ -11,6 +11,7 @@
    <listeners>
       <listener class-name="com.qa.opencart.listeners.ExtentReportListener" />
       <listener class-name="com.qa.opencart.listeners.AllureReportListener" />
+      <listener class-name="com.qa.opencart.listeners.TransformForFailedListner"></listener>
    </listeners>
    <test name="Login Page test">
         <parameter name="browser" value="chrome" />
@@ -33,11 +34,11 @@
 	</classes>
 	</test> -->
 	
-	<test name="ProductList Page Test ">
+	<test name="ProductDetails Page Test ">
 	<parameter name="browser" value="chrome" />
 		<parameter name="version" value="89" />
 	<classes>
-	<class name="com.qa.opencart.tests.ProductListPageTest"></class>
+	<class name="com.qa.opencart.tests.ProductDetailsPageTest"></class>
 	</classes>
 	</test>
 </suite>

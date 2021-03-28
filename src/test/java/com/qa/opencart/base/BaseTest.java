@@ -10,10 +10,12 @@ import org.testng.annotations.Parameters;
 
 import com.qa.opencart.factory.DriverFactory;
 import com.qa.opencart.pages.AccountPage;
+import com.qa.opencart.pages.CommonFunctionality;
 import com.qa.opencart.pages.LoginPage;
 import com.qa.opencart.pages.ProductDetailsPage;
 import com.qa.opencart.pages.ProductListPage;
 import com.qa.opencart.pages.RegistrationPage;
+import com.qa.opencart.tests.ProductListPageTest;
 
 public class BaseTest {
 	private WebDriver driver;
@@ -25,6 +27,8 @@ public class BaseTest {
 	public ProductListPage productListPage;
 	public ProductDetailsPage productDetailsPage;
 	public RegistrationPage registrationPage;
+	public ProductListPageTest productlistPage;
+	public CommonFunctionality commonPage;
 	
 	@Parameters({"browser","version"})
 	@BeforeTest
@@ -61,10 +65,10 @@ public class BaseTest {
 	}
 	
 	
-	@AfterTest
+	/*@AfterTest
 	public void tearDown()
 	{
 		driver.quit();
-	}
+	}*/
 
 }

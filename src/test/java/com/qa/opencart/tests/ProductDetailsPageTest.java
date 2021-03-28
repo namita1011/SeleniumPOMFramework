@@ -1,6 +1,7 @@
 package com.qa.opencart.tests;
 
-import static org.testng.Assert.assertEquals;
+import org.testng.Assert;
+
 
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.testng.asserts.SoftAssert;
 
 import com.qa.opencart.base.BaseTest;
 import com.qa.opencart.utils.Constants;
+import com.qa.opencart.utils.Errors;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
@@ -26,28 +28,46 @@ public class ProductDetailsPageTest extends BaseTest {
 	}
 	
 	
-	@Test
+	@Test (priority=1)
 	
 	public void ProductListPageTitleTest()
 	{
-		productListPage=accPage.doSearch("Macbook");
-		productDetailsPage=productListPage.selectProductFromResults("MacBook Pro");
+		productListPage=accPage.doSearch("iMac");
+		productDetailsPage=productListPage.selectProductFromResults("iMac");
 		String header=productDetailsPage.getProductHeaderText();
-		assertEquals(header,Constants.PRODUCT_DETTAILS_HEADER);
+		Assert.assertEquals(header, Constants.PRODUCT_DETTAILS_HEADER);
 	}
 	@Description("product details page")
 	@Severity(SeverityLevel.CRITICAL)
-	@Test
+	@Test (priority=2)
 	public void productInfoDataTest() {
-	/*	productListPage = accPage.doSearch("Macbook");
-		productDetailsPage = productListPage.selectProductFromResults("MacBook Pro");*/
+		productListPage = accPage.doSearch("iMac");
+		productDetailsPage = productListPage.selectProductFromResults("iMac");
 		Map<String, String> ProductInfoMap = productDetailsPage.getProductMetaData();
-		softAssert.assertTrue(ProductInfoMap.get("name").equals("MacBook Pro"));
+		System.out.println(ProductInfoMap.get("Name"));
+		softAssert.assertTrue(ProductInfoMap.get("Name").equals("iMac"));
 		softAssert.assertTrue(ProductInfoMap.get("Brand").equals("Apple"));
-		softAssert.assertTrue(ProductInfoMap.get("price    ").equals("$2,000.00"));
+		softAssert.assertTrue(ProductInfoMap.get("price").equals("$100.00"));
 		softAssert.assertAll();
 		
+		//Assert.assertEquals(ProductInfoMap.get("Name"),"MacBook Pro");
+		
 	}
+	@Description("Add to cart ")
+	@Severity(SeverityLevel.BLOCKER)
+	
+	@Test (priority=3,enabled=false)
+	public void addCartProductTest()
+	{
+		productListPage = accPage.doSearch("iMac");
+		productDetailsPage = productListPage.selectProductFromResults("iMac");
+		productDetailsPage.selectQty("1");
+		productDetailsPage.addToCart();
+		productDetailsPage.getSuccessMeg();
+		
+		Assert.assertEquals(productDetailsPage.getSuccessMeg(),Constants.SUCCESS_ADDCART_MESSAGE,Errors.ADDCART_SUCCESS_ERROR);
+	}
+	
 
 	
 
