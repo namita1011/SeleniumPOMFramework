@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Demo Cart App Regression Test Suite" thread-count="3" parallel="tests" verbose="1">
-   <!-- <groups>
+   <groups>
 	
 	<run>
-	    <include name="smoke"></include>
+	    <include name="sanity"></include>
 	</run>
 	
-	</groups> -->
+	</groups>
    <listeners>
       <listener class-name="com.qa.opencart.listeners.ExtentReportListener" />
       <listener class-name="com.qa.opencart.listeners.AllureReportListener" />
@@ -34,11 +34,11 @@
 	</classes>
 	</test> -->
 	
-	<test name="ProductDetails Page Test ">
+	<!-- <test name="ProductDetails Page Test ">
 	<parameter name="browser" value="chrome" />
 		<parameter name="version" value="89" />
 	<classes>
 	<class name="com.qa.opencart.tests.ProductDetailsPageTest"></class>
 	</classes>
-	</test>
+	</test> -->
 </suite>

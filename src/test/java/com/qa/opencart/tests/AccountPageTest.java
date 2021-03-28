@@ -23,7 +23,7 @@ import io.qameta.allure.Story;
 public class AccountPageTest extends BaseTest{
 SoftAssert softassert= new SoftAssert();
 
-	@BeforeClass
+	@BeforeClass (alwaysRun = true)
 	public void AccountSetup()
 	{
 		accPage=loginpage.doLogin(prop.getProperty("username"), prop.getProperty("password"));
@@ -33,7 +33,7 @@ SoftAssert softassert= new SoftAssert();
 	@Description("Account page title")
 	@Severity(SeverityLevel.MINOR)
 	
-	@Test(priority=1)
+	@Test(priority=1,groups={"smoke"})
 	public void accountPageTitleTest()
 	{
 		String title=accPage.AccountPageTitle();
@@ -44,7 +44,7 @@ SoftAssert softassert= new SoftAssert();
 	@Description("Logo validation")
 	@Severity(SeverityLevel.MINOR)
 	
-	@Test(priority=2)
+	@Test(priority=2,groups={"smoke"})
 	public void isLogoDisplayedTest()
 	{
 		Assert.assertTrue(accPage.Logo());
@@ -53,7 +53,7 @@ SoftAssert softassert= new SoftAssert();
 	
 	@Description("headerCountTest")
 	@Severity(SeverityLevel.MINOR)
-	@Test(priority=3)
+	@Test(priority=3,groups={"smoke"})
 	public void headerCountTest()
 	{
 		int totalHeader=accPage.getAccountPageHeaderCount();
@@ -62,7 +62,7 @@ SoftAssert softassert= new SoftAssert();
 	
 	@Description("headerListTest")
 	@Severity(SeverityLevel.MINOR)
-	@Test(priority=4)
+	@Test(priority=4,groups={"sanity"})
 	public void headerListTest()
 	{
 		List<String>actualHeaderList=accPage.getAccountPagerHeaderList();
@@ -79,7 +79,7 @@ SoftAssert softassert= new SoftAssert();
 	}*/
 	@Description("searchProductTest")
 	@Severity(SeverityLevel.MINOR)
-	@Test(priority=6)
+	@Test(priority=6,groups={"smoke"})
 	public void searchProductTest()
 	{
 		productListPage=accPage.doSearch("macbook");
@@ -87,7 +87,7 @@ SoftAssert softassert= new SoftAssert();
 	}
 	@Description("searchProductTest")
 	@Severity(SeverityLevel.CRITICAL)
-	@Test(priority=7)
+	@Test(priority=7,groups={"sanity"})
 	public void SelectProductTest()
 	{   
 		productListPage=accPage.doSearch("macbook");

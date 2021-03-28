@@ -21,7 +21,7 @@ public class LoginPageTest extends BaseTest {
 	@Severity(SeverityLevel.MINOR)
 	
 	
-	@Test (priority=1)
+	@Test (priority=1,groups={"smoke"})
 	public void LoginPageTitleTest()
 	{
 		String title=loginpage.getLoginPageTitle();
@@ -29,7 +29,7 @@ public class LoginPageTest extends BaseTest {
 	}
 	@Description("forgot password link validaton")
 	@Severity(SeverityLevel.MINOR)
-	@Test (priority=2)
+	@Test (priority=2,groups={"sanity"})
 	public void ForgotPwdLinkDisplayTest()
 	{
 		Assert.assertTrue(loginpage.isForgotpwdLinkExist());

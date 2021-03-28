@@ -31,7 +31,7 @@ public class BaseTest {
 	public CommonFunctionality commonPage;
 	
 	@Parameters({"browser","version"})
-	@BeforeTest
+	@BeforeTest (alwaysRun = true)
 	public void setUp(@Optional String browserName,@Optional String browserVersion)
 	{
 		System.out.println(browserName + " "+browserVersion );
